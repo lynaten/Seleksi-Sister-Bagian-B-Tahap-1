@@ -1,0 +1,247 @@
+@startuml bcm
+title Business Capability Map - Pendeteksi Mood Tulisan
+
+skinparam handwritten false
+skinparam rectangle {
+  BorderColor #333333
+  FontColor #333333
+  BackgroundColor #EEEEEE
+  ArrowColor #333333
+}
+
+legend right
+- High Strategic Impact: #ee7579ff
+- Medium Strategic Impact: #eec078ff
+- Low Strategic Impact: #86a6ddff
+endlegend
+
+' ===================== CHANNEL MANAGEMENT =====================
+rectangle "Channel Management" as CHM {
+  rectangle "Web and Mobile Portal" as CH_01 #ee7579ff {
+    rectangle "User Onboarding and Auth" as CH_01_1 #ee7579ff {
+      rectangle "auth-service" as CH_01_1_auth_service #ee7579ff
+      rectangle "session-store" as CH_01_1_session_store #ee7579ff
+    }
+    rectangle "Project and Corpus Management" as CH_01_2 #eec078ff
+    rectangle "Dashboard and Visualization" as CH_01_3 #eec078ff {
+      rectangle "svc" as CH_01_3_svc #eec078ff
+    }
+    rectangle "Localization ID EN" as CH_01_4 #86a6ddff
+  }
+  rectangle "Public API and SDK" as CH_02 #ee7579ff {
+    rectangle "REST and GraphQL APIs" as CH_02_1 #ee7579ff
+    rectangle "Streaming Ingestion webhooks Kafka" as CH_02_2 #ee7579ff
+    rectangle "Client SDKs Python JS Go" as CH_02_3 #eec078ff
+    rectangle "Rate Limiting and API Keys" as CH_02_4 #ee7579ff {
+      rectangle "api-gateway" as CH_02_4_api_gateway #ee7579ff
+      rectangle "dev-portal" as CH_02_4_dev_portal #ee7579ff
+    }
+  }
+  rectangle "Connectors and Integrations" as CH_03 #eec078ff {
+    rectangle "Email IMAP SMTP" as CH_03_1 #eec078ff
+    rectangle "Chat Slack Teams WhatsApp" as CH_03_2 #eec078ff
+    rectangle "Social X Instagram Facebook" as CH_03_3 #eec078ff
+    rectangle "CRM Zendesk Salesforce" as CH_03_4 #eec078ff
+  }
+  rectangle "Bulk Ingestion" as CH_04 #eec078ff {
+    rectangle "CSV JSON Upload" as CH_04_1 #eec078ff
+    rectangle "Data Validation and Schema Mapping" as CH_04_2 #eec078ff {
+      rectangle "ingest-validator" as CH_04_2_ingest_validator #eec078ff
+      rectangle "mapper" as CH_04_2_mapper #eec078ff
+    }
+    rectangle "PII Scrubbing at Ingest" as CH_04_3 #ee7579ff
+  }
+  rectangle "Notification and Alerts" as CH_05 #eec078ff {
+    rectangle "Email SMS Chat Alerts" as CH_05_1 #eec078ff
+    rectangle "Webhook Automations" as CH_05_2 #eec078ff
+    rectangle "Rule based Triggers" as CH_05_3 #eec078ff
+  }
+}
+
+' ===================== SERVICE DELIVERY =====================
+rectangle "Service Delivery" as SD {
+  rectangle "Text Preprocessing and Language" as SD_01 #ee7579ff {
+    rectangle "Language Detection" as SD_01_1 #eec078ff
+    rectangle "Normalization and Tokenization" as SD_01_2 #ee7579ff {
+      rectangle "preprocess-worker" as SD_01_2_preprocess_worker #ee7579ff
+      rectangle "tokenizer" as SD_01_2_tokenizer #ee7579ff
+    }
+    rectangle "PII Redaction" as SD_01_3 #ee7579ff
+    rectangle "Translation" as SD_01_4 #86a6ddff
+  }
+  rectangle "Mood Classification Engine" as SD_02 #ee7579ff {
+    rectangle "Taxonomy Management emotion labels" as SD_02_1 #ee7579ff
+    rectangle "Multi label Classifier" as SD_02_2 #ee7579ff {
+      rectangle "svc" as SD_02_2_svc #ee7579ff
+    }
+    rectangle "Confidence Calibration" as SD_02_3 #eec078ff
+    rectangle "Sarcasm Irony Detector" as SD_02_4 #eec078ff
+    rectangle "Toxicity Abuse Classifier" as SD_02_5 #eec078ff
+  }
+  rectangle "Model Orchestration and Inference" as SD_03 #ee7579ff {
+    rectangle "Routing small model vs LLM fallback" as SD_03_1 #ee7579ff
+    rectangle "Batch and Realtime Serving" as SD_03_2 #ee7579ff {
+      rectangle "realtime-inference" as SD_03_2_realtime_inference #ee7579ff
+      rectangle "batch-inference" as SD_03_2_batch_inference #ee7579ff
+    }
+    rectangle "Low latency Caching" as SD_03_3 #eec078ff
+  }
+  rectangle "Analytics and Insights" as SD_04 #ee7579ff {
+    rectangle "Trends and Timeseries" as SD_04_1 #ee7579ff {
+      rectangle "analytics-aggregator" as SD_04_1_analytics_aggregator #ee7579ff
+      rectangle "report-api" as SD_04_1_report_api #ee7579ff
+    }
+    rectangle "Segmentation by Channel Locale" as SD_04_2 #eec078ff
+    rectangle "Topic Clustering Keyphrases" as SD_04_3 #eec078ff
+    rectangle "Report Builder and Export" as SD_04_4 #eec078ff {
+      rectangle "svc" as SD_04_4_svc #eec078ff
+    }
+  }
+  rectangle "Human in the loop and Labeling" as SD_05 #eec078ff {
+    rectangle "Annotation UI" as SD_05_1 #eec078ff
+    rectangle "Active Learning and Review Queues" as SD_05_2 #eec078ff {
+      rectangle "al-strategy" as SD_05_2_al_strategy #eec078ff
+      rectangle "label-ui" as SD_05_2_label_ui #eec078ff
+    }
+    rectangle "Quality Metrics IAA precision recall" as SD_05_3 #eec078ff
+    rectangle "Model Feedback Loop" as SD_05_4 #eec078ff
+  }
+  rectangle "Automation and Actions" as SD_06 #eec078ff {
+    rectangle "Rules Engine if then" as SD_06_1 #eec078ff
+    rectangle "Integration Actions CRM ticket tag" as SD_06_2 #eec078ff
+    rectangle "A B Test of Responses" as SD_06_3 #86a6ddff
+  }
+}
+
+' ===================== ORG SUPPORT =====================
+rectangle "Org Support" as OS {
+  rectangle "Customer Management and CRM" as OS_01 #eec078ff {
+    rectangle "Account and Tenant Management" as OS_01_1 #eec078ff {
+      rectangle "svc" as OS_01_1_svc #eec078ff
+    }
+    rectangle "Support and SLA Management" as OS_01_2 #ee7579ff {
+      rectangle "svc" as OS_01_2_svc #ee7579ff
+    }
+    rectangle "Usage Analytics" as OS_01_3 #eec078ff
+  }
+  rectangle "Billing and Monetization" as OS_02 #ee7579ff {
+    rectangle "Subscription Plans" as OS_02_1 #ee7579ff
+    rectangle "Invoicing and Taxes" as OS_02_2 #ee7579ff {
+      rectangle "billing-service" as OS_02_2_billing_service #ee7579ff
+      rectangle "recon-job" as OS_02_2_recon_job #ee7579ff
+    }
+    rectangle "Payments and Reconciliation" as OS_02_3 #ee7579ff {
+      rectangle "billing-service" as OS_02_3_billing_service #ee7579ff
+      rectangle "recon-job" as OS_02_3_recon_job #ee7579ff
+    }
+  }
+  rectangle "Sales and Partnerships" as OS_03 #eec078ff {
+    rectangle "Lead Management" as OS_03_1 #eec078ff
+    rectangle "Partner Program" as OS_03_2 #eec078ff
+    rectangle "RFP Bid Support" as OS_03_3 #eec078ff
+  }
+  rectangle "Legal Risk and Compliance" as OS_04 #ee7579ff {
+    rectangle "Privacy GDPR UU PDP" as OS_04_1 #ee7579ff
+    rectangle "Data Processing Agreements" as OS_04_2 #ee7579ff
+    rectangle "Model Explainability Docs" as OS_04_3 #eec078ff
+    rectangle "AI Use Policy and Ethics Review" as OS_04_4 #ee7579ff {
+      rectangle "svc" as OS_04_4_svc #ee7579ff
+    }
+  }
+  rectangle "HR and Training" as OS_05 #86a6ddff {
+    rectangle "Hiring and Onboarding" as OS_05_1 #86a6ddff {
+      rectangle "svc" as OS_05_1_svc #86a6ddff
+    }
+    rectangle "Role based Training" as OS_05_2 #86a6ddff
+    rectangle "Performance and OKRs" as OS_05_3 #86a6ddff {
+      rectangle "svc" as OS_05_3_svc #86a6ddff
+    }
+  }
+  rectangle "Operations and SRE" as OS_06 #ee7579ff {
+    rectangle "Incident Management" as OS_06_1 #ee7579ff
+    rectangle "Capacity Planning" as OS_06_2 #eec078ff
+    rectangle "Business Continuity DR" as OS_06_3 #ee7579ff {
+      rectangle "dr-controller" as OS_06_3_dr_controller #ee7579ff
+    }
+  }
+}
+
+' ===================== ENABLERS =====================
+rectangle "Enablers" as EN {
+  rectangle "Data Platform" as EN_01 #ee7579ff {
+    rectangle "Data Lake and Warehouse" as EN_01_1 #ee7579ff {
+      rectangle "svc" as EN_01_1_svc #ee7579ff
+    }
+    rectangle "Feature Store" as EN_01_2 #ee7579ff {
+      rectangle "feature-registry" as EN_01_2_feature_registry #ee7579ff
+      rectangle "feature-serving" as EN_01_2_feature_serving #ee7579ff
+    }
+    rectangle "Metadata and Catalog" as EN_01_3 #eec078ff {
+      rectangle "svc" as EN_01_3_svc #eec078ff
+    }
+    rectangle "Data Quality and Lineage" as EN_01_4 #ee7579ff {
+      rectangle "dq-engine" as EN_01_4_dq_engine #ee7579ff
+      rectangle "lineage-tracker" as EN_01_4_lineage_tracker #ee7579ff
+    }
+  }
+  rectangle "ML Platform and MLOps" as EN_02 #ee7579ff {
+    rectangle "Experiment Tracking and Registry" as EN_02_1 #eec078ff {
+      rectangle "svc" as EN_02_1_svc #eec078ff
+    }
+    rectangle "CI CD for Models" as EN_02_2 #ee7579ff
+    rectangle "Model Monitoring drift bias" as EN_02_3 #ee7579ff {
+      rectangle "monitor-agent" as EN_02_3_monitor_agent #ee7579ff
+      rectangle "alerting" as EN_02_3_alerting #ee7579ff
+    }
+    rectangle "A B Testing and Shadow Deploy" as EN_02_4 #eec078ff {
+      rectangle "svc" as EN_02_4_svc #eec078ff
+    }
+  }
+  rectangle "App Platform and DevOps" as EN_03 #ee7579ff {
+    rectangle "Container Platform and Orchestration" as EN_03_1 #ee7579ff {
+      rectangle "control-plane" as EN_03_1_control_plane #ee7579ff
+      rectangle "ingress" as EN_03_1_ingress #ee7579ff
+    }
+    rectangle "API Gateway and Service Mesh" as EN_03_2 #ee7579ff {
+      rectangle "gateway" as EN_03_2_gateway #ee7579ff
+      rectangle "mesh" as EN_03_2_mesh #ee7579ff
+    }
+    rectangle "Observability logs metrics traces" as EN_03_3 #ee7579ff
+    rectangle "Release Mgmt and Blue Green" as EN_03_4 #eec078ff {
+      rectangle "cd-controller" as EN_03_4_cd_controller #eec078ff
+    }
+  }
+  rectangle "Security" as EN_04 #ee7579ff {
+    rectangle "IAM and RBAC" as EN_04_1 #ee7579ff {
+      rectangle "svc" as EN_04_1_svc #ee7579ff
+    }
+    rectangle "Secrets Mgmt and KMS" as EN_04_2 #ee7579ff {
+      rectangle "vault" as EN_04_2_vault #ee7579ff
+    }
+    rectangle "Encryption at Rest and In Transit" as EN_04_3 #ee7579ff
+    rectangle "Vulnerability Mgmt" as EN_04_4 #ee7579ff
+  }
+  rectangle "Data Governance" as EN_05 #ee7579ff {
+    rectangle "Policy and Stewardship" as EN_05_1 #ee7579ff {
+      rectangle "policy-registry" as EN_05_1_policy_registry #ee7579ff
+    }
+    rectangle "PII PHI Handling and DLP" as EN_05_2 #ee7579ff {
+      rectangle "dlp-service" as EN_05_2_dlp_service #ee7579ff
+    }
+    rectangle "Consent Management" as EN_05_3 #ee7579ff
+    rectangle "Audit and Reporting" as EN_05_4 #ee7579ff {
+      rectangle "audit-collector" as EN_05_4_audit_collector #ee7579ff
+      rectangle "reporting" as EN_05_4_reporting #ee7579ff
+    }
+  }
+  rectangle "QA and Testing" as EN_06 #eec078ff {
+    rectangle "Automated Testing unit e2e" as EN_06_1 #eec078ff
+    rectangle "Data and Model Validation" as EN_06_2 #ee7579ff {
+      rectangle "svc" as EN_06_2_svc #ee7579ff
+    }
+    rectangle "Load and Latency Testing" as EN_06_3 #eec078ff {
+      rectangle "svc" as EN_06_3_svc #eec078ff
+    }
+  }
+}
+@enduml

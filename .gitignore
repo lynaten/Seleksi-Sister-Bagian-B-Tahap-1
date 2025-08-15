@@ -1,0 +1,12 @@
+# Ignore semua file tanpa ekstensi
+
+# Tapi jangan ignore file yang punya ekstensi
+!**/*.*
+
+# Jangan ignore folder
+!*/
+
+!**/Makefile
+
+# Tetap track seluruh isi folder DNS - DeeezNuddS dan subfoldernya
+!DNS - DeeezNuddS/**
