@@ -1,4 +1,5 @@
 # Ignore semua file tanpa ekstensi
+**/*
 
 # Tapi jangan ignore file yang punya ekstensi
 !**/*.*
