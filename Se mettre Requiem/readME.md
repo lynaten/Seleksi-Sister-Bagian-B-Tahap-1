@@ -97,7 +97,6 @@ make clean     # Remove compiled binaries and outputs
 
 ```
 888888888888888888888888888711111111111111111111111111112
-Execution time: 0:00.05 (0.05s)
 ```
 
 **terminal output**
